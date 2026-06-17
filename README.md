@@ -1,26 +1,26 @@
-# 🏕️ Project Camp Backend
+# Project Camp Backend
 
 A RESTful API service for collaborative project management, built with **Express.js** and **MongoDB**. Project Camp enables teams to organize projects, manage tasks with subtasks, maintain project notes, and handle user authentication with role-based access control.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [API Reference](#-api-reference)
-- [Role-Based Access Control](#-role-based-access-control)
-- [Data Models](#-data-models)
-- [Security](#-security)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [API Reference](#api-reference)
+- [Role-Based Access Control](#role-based-access-control)
+- [Data Models](#data-models)
+- [Security](#security)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## ✨ Features
+## Features
 
 - **User Authentication** — Registration, login, JWT-based sessions, and token refresh
 - **Email Verification** — Account verification and password reset via email (Mailtrap / SMTP)
@@ -34,7 +34,7 @@ A RESTful API service for collaborative project management, built with **Express
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer          | Technology                                                     |
 | -------------- | -------------------------------------------------------------- |
@@ -48,7 +48,7 @@ A RESTful API service for collaborative project management, built with **Express
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 project-camp-backend/
@@ -91,7 +91,7 @@ project-camp-backend/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -116,7 +116,7 @@ project-camp-backend/
 
 3. **Configure environment variables**
 
-   Create a `.env` file in the project root (see [Environment Variables](#-environment-variables) below).
+   Create a `.env` file in the project root (see [Environment Variables](#environment-variables) below).
 
 4. **Start the development server**
 
@@ -135,7 +135,7 @@ project-camp-backend/
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 Create a `.env` file in the project root with the following variables:
 
@@ -167,85 +167,85 @@ FORGOT_PASSWORD_REDIRECT_URL=http://localhost:3000
 
 ---
 
-## 📡 API Reference
+## API Reference
 
 **Base URL:** `http://localhost:8000/api/v1`
 
 ### Health Check
 
-| Method | Endpoint         | Description          | Auth |
-| ------ | ---------------- | -------------------- | ---- |
-| `GET`  | `/healthcheck/`  | System health status | ❌   |
+| Method | Endpoint         | Description          | Auth     |
+| ------ | ---------------- | -------------------- | -------- |
+| `GET`  | `/healthcheck/`  | System health status | Public   |
 
 ### Authentication — `/auth`
 
-| Method | Endpoint                              | Description                | Auth |
-| ------ | ------------------------------------- | -------------------------- | ---- |
-| `POST` | `/auth/register`                      | Register a new user        | ❌   |
-| `POST` | `/auth/login`                         | Login & get tokens         | ❌   |
-| `POST` | `/auth/logout`                        | Logout current user        | ✅   |
-| `GET`  | `/auth/current-user`                  | Get current user profile   | ✅   |
-| `POST` | `/auth/change-password`               | Change password            | ✅   |
-| `POST` | `/auth/refresh-token`                 | Refresh access token       | ❌   |
-| `GET`  | `/auth/verify-email/:verificationToken` | Verify email address     | ❌   |
-| `POST` | `/auth/forgot-password`               | Request password reset     | ❌   |
-| `POST` | `/auth/reset-password/:resetToken`    | Reset forgotten password   | ❌   |
-| `POST` | `/auth/resend-email-verification`     | Resend verification email  | ✅   |
+| Method | Endpoint                              | Description                | Auth     |
+| ------ | ------------------------------------- | -------------------------- | -------- |
+| `POST` | `/auth/register`                      | Register a new user        | Public   |
+| `POST` | `/auth/login`                         | Login & get tokens         | Public   |
+| `POST` | `/auth/logout`                        | Logout current user        | Required |
+| `GET`  | `/auth/current-user`                  | Get current user profile   | Required |
+| `POST` | `/auth/change-password`               | Change password            | Required |
+| `POST` | `/auth/refresh-token`                 | Refresh access token       | Public   |
+| `GET`  | `/auth/verify-email/:verificationToken` | Verify email address     | Public   |
+| `POST` | `/auth/forgot-password`               | Request password reset     | Public   |
+| `POST` | `/auth/reset-password/:resetToken`    | Reset forgotten password   | Public   |
+| `POST` | `/auth/resend-email-verification`     | Resend verification email  | Required |
 
 ### Projects — `/projects`
 
-| Method   | Endpoint                           | Description            | Auth | Role        |
-| -------- | ---------------------------------- | ---------------------- | ---- | ----------- |
-| `GET`    | `/projects/`                       | List user's projects   | ✅   | Any         |
-| `POST`   | `/projects/`                       | Create a new project   | ✅   | Any         |
-| `GET`    | `/projects/:projectId`             | Get project details    | ✅   | Role-based  |
-| `PUT`    | `/projects/:projectId`             | Update project         | ✅   | Admin       |
-| `DELETE` | `/projects/:projectId`             | Delete project         | ✅   | Admin       |
-| `GET`    | `/projects/:projectId/members`     | List project members   | ✅   | Any         |
-| `POST`   | `/projects/:projectId/members`     | Add member to project  | ✅   | Admin       |
-| `PUT`    | `/projects/:projectId/members/:userId` | Update member role | ✅   | Admin       |
-| `DELETE` | `/projects/:projectId/members/:userId` | Remove member      | ✅   | Admin       |
+| Method   | Endpoint                           | Description            | Auth     | Role        |
+| -------- | ---------------------------------- | ---------------------- | -------- | ----------- |
+| `GET`    | `/projects/`                       | List user's projects   | Required | Any         |
+| `POST`   | `/projects/`                       | Create a new project   | Required | Any         |
+| `GET`    | `/projects/:projectId`             | Get project details    | Required | Role-based  |
+| `PUT`    | `/projects/:projectId`             | Update project         | Required | Admin       |
+| `DELETE` | `/projects/:projectId`             | Delete project         | Required | Admin       |
+| `GET`    | `/projects/:projectId/members`     | List project members   | Required | Any         |
+| `POST`   | `/projects/:projectId/members`     | Add member to project  | Required | Admin       |
+| `PUT`    | `/projects/:projectId/members/:userId` | Update member role | Required | Admin       |
+| `DELETE` | `/projects/:projectId/members/:userId` | Remove member      | Required | Admin       |
 
 ### Tasks — `/tasks`
 
-| Method   | Endpoint                                    | Description        | Auth | Role               |
-| -------- | ------------------------------------------- | ------------------ | ---- | ------------------ |
-| `GET`    | `/tasks/:projectId`                         | List project tasks | ✅   | Role-based         |
-| `POST`   | `/tasks/:projectId`                         | Create a task      | ✅   | Admin/Project Admin |
-| `GET`    | `/tasks/:projectId/t/:taskId`               | Get task details   | ✅   | Role-based         |
-| `PUT`    | `/tasks/:projectId/t/:taskId`               | Update a task      | ✅   | Admin/Project Admin |
-| `DELETE` | `/tasks/:projectId/t/:taskId`               | Delete a task      | ✅   | Admin/Project Admin |
-| `POST`   | `/tasks/:projectId/t/:taskId/subtasks`      | Create subtask     | ✅   | Admin/Project Admin |
-| `PUT`    | `/tasks/:projectId/st/:subTaskId`           | Update subtask     | ✅   | Role-based         |
-| `DELETE` | `/tasks/:projectId/st/:subTaskId`           | Delete subtask     | ✅   | Admin/Project Admin |
+| Method   | Endpoint                                    | Description        | Auth     | Role               |
+| -------- | ------------------------------------------- | ------------------ | -------- | ------------------ |
+| `GET`    | `/tasks/:projectId`                         | List project tasks | Required | Role-based         |
+| `POST`   | `/tasks/:projectId`                         | Create a task      | Required | Admin/Project Admin |
+| `GET`    | `/tasks/:projectId/t/:taskId`               | Get task details   | Required | Role-based         |
+| `PUT`    | `/tasks/:projectId/t/:taskId`               | Update a task      | Required | Admin/Project Admin |
+| `DELETE` | `/tasks/:projectId/t/:taskId`               | Delete a task      | Required | Admin/Project Admin |
+| `POST`   | `/tasks/:projectId/t/:taskId/subtasks`      | Create subtask     | Required | Admin/Project Admin |
+| `PUT`    | `/tasks/:projectId/st/:subTaskId`           | Update subtask     | Required | Role-based         |
+| `DELETE` | `/tasks/:projectId/st/:subTaskId`           | Delete subtask     | Required | Admin/Project Admin |
 
 ### Notes — `/notes`
 
-| Method   | Endpoint                          | Description       | Auth | Role       |
-| -------- | --------------------------------- | ----------------- | ---- | ---------- |
-| `GET`    | `/notes/:projectId`               | List project notes| ✅   | Role-based |
-| `POST`   | `/notes/:projectId`               | Create a note     | ✅   | Admin      |
-| `GET`    | `/notes/:projectId/n/:noteId`     | Get note details  | ✅   | Role-based |
-| `PUT`    | `/notes/:projectId/n/:noteId`     | Update a note     | ✅   | Admin      |
-| `DELETE` | `/notes/:projectId/n/:noteId`     | Delete a note     | ✅   | Admin      |
+| Method   | Endpoint                          | Description       | Auth     | Role       |
+| -------- | --------------------------------- | ----------------- | -------- | ---------- |
+| `GET`    | `/notes/:projectId`               | List project notes| Required | Role-based |
+| `POST`   | `/notes/:projectId`               | Create a note     | Required | Admin      |
+| `GET`    | `/notes/:projectId/n/:noteId`     | Get note details  | Required | Role-based |
+| `PUT`    | `/notes/:projectId/n/:noteId`     | Update a note     | Required | Admin      |
+| `DELETE` | `/notes/:projectId/n/:noteId`     | Delete a note     | Required | Admin      |
 
 ---
 
-## 🔒 Role-Based Access Control
+## Role-Based Access Control
 
 The system implements a three-tier permission model:
 
-| Feature                      | Admin | Project Admin | Member |
-| ---------------------------- | :---: | :-----------: | :----: |
-| Create Project               |  ✅   |      ❌       |   ❌   |
-| Update / Delete Project      |  ✅   |      ❌       |   ❌   |
-| Manage Project Members       |  ✅   |      ❌       |   ❌   |
-| Create / Update / Delete Tasks |  ✅ |      ✅       |   ❌   |
-| View Tasks                   |  ✅   |      ✅       |   ✅   |
-| Update Subtask Status        |  ✅   |      ✅       |   ✅   |
-| Create / Delete Subtasks     |  ✅   |      ✅       |   ❌   |
-| Create / Update / Delete Notes |  ✅ |      ❌       |   ❌   |
-| View Notes                   |  ✅   |      ✅       |   ✅   |
+| Feature                        | Admin | Project Admin | Member |
+| ------------------------------ | :---: | :-----------: | :----: |
+| Create Project                 |  Yes  |      No       |   No   |
+| Update / Delete Project        |  Yes  |      No       |   No   |
+| Manage Project Members         |  Yes  |      No       |   No   |
+| Create / Update / Delete Tasks |  Yes  |      Yes      |   No   |
+| View Tasks                     |  Yes  |      Yes      |   Yes  |
+| Update Subtask Status          |  Yes  |      Yes      |   Yes  |
+| Create / Delete Subtasks       |  Yes  |      Yes      |   No   |
+| Create / Update / Delete Notes |  Yes  |      No       |   No   |
+| View Notes                     |  Yes  |      Yes      |   Yes  |
 
 ### Role Definitions
 
@@ -255,7 +255,7 @@ The system implements a three-tier permission model:
 
 ---
 
-## 📊 Data Models
+## Data Models
 
 ### User
 - Email, username, password (hashed with bcrypt)
@@ -288,7 +288,7 @@ The system implements a three-tier permission model:
 
 ---
 
-## 🛡 Security
+## Security
 
 - **JWT Authentication** — Access and refresh token pair with configurable expiry
 - **Password Hashing** — bcrypt with salted hashing
@@ -301,7 +301,7 @@ The system implements a three-tier permission model:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -311,6 +311,6 @@ The system implements a three-tier permission model:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **ISC License**.
